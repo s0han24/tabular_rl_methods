@@ -46,5 +46,8 @@ for all $i\ge 0$
 - The tradeoff between these two makes the policy interesting especially in the undiscounted case
 - Refer [here](finite_horizon.ipynb) for the solution for this version of the machine replacement problem.
 
+## The Game of Nim
+- Monte Carlo with Exploring Starts implemented for the game of Nim [here](nim_MC_ES.ipynb)
+
 ### References
 <a id="1">[1]</a> Ross S. M. (1970) Applied Probability Models with Optimization Applications. Holden-Day: San Francisco, CA.
