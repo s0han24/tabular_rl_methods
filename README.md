@@ -44,6 +44,7 @@ for all $i\ge 0$
     1. Replacing the machine when the problem is close to terminating makes sure we get a higher payout
     2. But replacing the machine involves a replacement cost
 - The tradeoff between these two makes the policy interesting especially in the undiscounted case
+- Refer [here](finite_horizon.ipynb) for the solution for this version of the machine replacement problem.
 
 ### References
 <a id="1">[1]</a> Ross S. M. (1970) Applied Probability Models with Optimization Applications. Holden-Day: San Francisco, CA.
