@@ -1,8 +1,8 @@
 # tabular_rl_methods
 Implementations for tabular Reinforcement Learning methods for various problem settings
-
+<!--
 ## Table of Contents
-
+ -->
 
 ## The Machine Replacement Problem
 - An introductory problem in the context of solving Markov Decision Processes(MDPs) in the setting where the model of the environment is known
@@ -22,13 +22,13 @@ Implementations for tabular Reinforcement Learning methods for various problem s
 - In general as long as the transition probabilities satisfy [stochastic monotonicity](https://adityam.github.io/stochastic-control/mdps/monotone-mdps.html) the optimal policy can be shown to have some interesting properties.
 
 #### Transition Probabilities
-$$P_{ij}(0) = P_{0j}. \\
-P_{ij}(1) = P_{ij}$$
+$$P_{ij}(0) = P_{0j}$$
+$$P_{ij}(1) = P_{ij}$$
 for all $i\ge 0$
 
 #### One stage costs(rewards)
-$$C(i,0) = R+C(0). \\
-C(i,1) = C(i)$$
+$$C(i,0) = R+C(0)$$
+$$C(i,1) = C(i)$$
 for all $i\ge 0$
 
 ## Infinite Horizon Case
