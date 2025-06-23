@@ -56,10 +56,12 @@ Now we move to the case where the dynamics and rewards are not known. What we do
 - Nim is a combinatorial game, it is central to combinatorial game theory because its generalization gives a framework to describe any combinatorial game as a game of single heap Nim(not the simple nim game which is used here). Refer to the [Sprague-Grundy Theorem](https://en.wikipedia.org/wiki/Sprague%E2%80%93Grundy_theorem).
 - The optimal strategy for any combinatorial game is the same: get to a zero nim sum position(or a position with a Grundy number of zero)
 - However, this strategy is not always practical to implement
-- What I aim to do by exploring a Reinforcement Learning Solution to The Game of Nim is to see how RL methods fare on small combinatorial games and how close to the known optimal policy do they get.
+- What I aim to do by exploring a Reinforcement Learning Solution to The Game of Nim is to see how RL methods fare on small combinatorial games and how close to the known optimal policy do they get, to be clear the goal is not to come up with a way to build agents but to understand how these agents work using what is known about combinatorial games.
 
 #### Implementation details:
-- Self-Play is a method to train agents to play games that is responsible for the success of [AlphaGo Zero](https://deepmind.google/discover/blog/alphago-zero-starting-from-scratch/) [[2](#2)], to start off I implemented a static opponent who always plays optimally when an optimal strategy is available and plays a move that prolongs the game as much as possible when there isn't an optimal move and trained the model using this opponent.
+- Self-Play is a method to train agents to play games that is responsible for the success of [AlphaGo Zero](https://deepmind.google/discover/blog/alphago-zero-starting-from-scratch/) [[2](#2)], but to start off I implemented a static opponent who always plays optimally when an optimal strategy is available and plays a move that prolongs the game as much as possible when there isn't an optimal move and trained the model using this opponent.
+- Using this static opponent is feasible here because we have an easily implementable optimal strategy so we don't run the risk of limiting the agent's learning by learning using an amateur opponent.
+- The drawback of using this opponent is that the agent rarely receives positive feedback which slows down learning
 - For a detailed description of Simple Nim and the implementation of the opponent refer [this](nim_MC_on_policy.ipynb)
 
 #### Without Self Play
