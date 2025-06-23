@@ -59,11 +59,11 @@ Now we move to the case where the dynamics and rewards are not known. What we do
 - What I aim to do by exploring a Reinforcement Learning Solution to The Game of Nim is to see how RL methods fare on small combinatorial games and how close to the known optimal policy do they get.
 
 #### Implementation details:
-- Self-Play is a method to train agents to play games that is responsible for the success of [AlphaGo Zero](https://deepmind.google/discover/blog/alphago-zero-starting-from-scratch/)[[2](#2)], to start off I implemented a static opponent who always plays optimally when an optimal strategy is available and plays a move that prolongs the game as much as possible when there isn't an optimal move and trained the model using this opponent.
+- Self-Play is a method to train agents to play games that is responsible for the success of [AlphaGo Zero](https://deepmind.google/discover/blog/alphago-zero-starting-from-scratch/) [[2](#2)], to start off I implemented a static opponent who always plays optimally when an optimal strategy is available and plays a move that prolongs the game as much as possible when there isn't an optimal move and trained the model using this opponent.
 - For a detailed description of Simple Nim and the implementation of the opponent refer [this](nim_MC_on_policy.ipynb)
 
 #### Without Self Play
-- Monte Carlo with Exploring Starts and Epsilon Greedy Policy On Policy implemented for the game of Nim both first visit and every visit[here](nim_MC_on_policy.ipynb)
+- Monte Carlo with Exploring Starts and Epsilon Greedy Policy On Policy implemented for the game of Nim both first visit and every visit [here](nim_MC_on_policy.ipynb)
 - Sarsa implemented [here](nim_Sarsa.ipynb)
 - Performance is measured based on number of winning positions fumbled, i.e. number of states where the optimal strategy guarantees winning but the agent makes a move such that against an opponent playing optimally, the game is lost.
 
