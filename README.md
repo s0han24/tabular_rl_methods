@@ -48,6 +48,7 @@ for all $i\ge 0$
 
 ## The Game of Nim
 - Monte Carlo with Exploring Starts and Epsilon Greedy Policy On Policy implemented for the game of Nim [here](nim_MC_ES.ipynb)
+- First visit as well as every visit versions are implemented
 - For the given seed, purely exploring starts does worse than epsilon greedy with exploring starts and epsilon greedy without exploring starts does extremely bad for 3 heaps of size 5 each initially
 - Performance is measured based on number of winning positions fumbled, i.e. number of states where the optimal strategy guarantees winning but the agent makes a move such that against an opponent playing optimally, the game is lost
 
