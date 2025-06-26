@@ -79,8 +79,8 @@ Now we move to the case where the dynamics and rewards are not known. What we do
 **Conclusion**: let's try discounting so that suboptimal moves along a sample path don't punish **all** moves harshly
 
 - Initially blamed jagged Q-values on lack of discounting but it turns out I just needed to train longer for convergence. ¯\\\_(ツ)\_/¯
-- Discounting did help reduce fumble rates though for SARSA
-- Q-learning performs badly throughout, this could be improved suggestions and contributions are welcome via issues or PRs if you are feeling generous!
+- Discounting did help reduce fumble rates for SARSA though
+- Q-learning performs badly throughout, this could be improved suggestions and contributions are welcome via issues or a PR if you are feeling generous!
 
 ### References
 <a id="1">[1]</a> 📚 S. M. Ross, Applied Probability Models with Optimization Applications, Holden-Day, 1970.  
