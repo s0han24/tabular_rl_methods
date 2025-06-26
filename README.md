@@ -67,8 +67,18 @@ Now we move to the case where the dynamics and rewards are not known. What we do
 #### Without Self Play
 - Monte Carlo with Exploring Starts and Epsilon Greedy Policy On Policy implemented for the game of Nim both first visit and every visit [here](nim_MC_on_policy.ipynb)
 - Sarsa implemented [here](nim_Sarsa.ipynb).  
-> Note: Bootstrapping is comparable to MC control and sometimes worse
 - Performance is measured based on number of winning positions fumbled, i.e. number of states where the optimal strategy guarantees winning but the agent makes a move such that against an opponent playing optimally, the game is lost.
+
+#### Observations for undiscounted case:
+- Q-value vs episode plots indicate that convergence is much more stable for self play than for an optimal opponent
+- But the analysing the fumble rates, self play does much worse
+- The reason for this seems to be that due to optimal opponents harshly punishing any suboptimal move, which causes drastic drops in the best Q-value along the entire sample path containing suboptimal moves
+- Zero reward on losing(no negative reward) shows smoother convergence because suboptimal moves are punished less harshly
+
+**Conclusion**: let's try discounting so that suboptimal moves along a sample path don't punish **all** moves harshly
+
+- Initially blamed jagged Q-values on lack of discounting but it turns out I just needed to train longer for convergence. ¯\\\_(ツ)\_/¯
+- Discounting did help reduce fumble rates though for SARSA
 
 ### References
 <a id="1">[1]</a> 📚 S. M. Ross, Applied Probability Models with Optimization Applications, Holden-Day, 1970.  
