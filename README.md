@@ -1,12 +1,6 @@
 # tabular_rl_methods
 Implementations for tabular Reinforcement Learning methods for various problem settings
 
-## Table of Contents
-1. Planning for fully observable MDPs
-2. Reinforcement Learning
-3. References
-4. Contributing
-
 ## Planning Methods
 Methods to solve MDPs where all dynamics and reward systems are known
 
