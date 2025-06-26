@@ -58,9 +58,9 @@ Now we move to the case where the dynamics and rewards are not known. What we do
 
 #### Observations for undiscounted case:
 - Q-value vs episode plots indicate that convergence is much more stable for self play than for an optimal opponent
-- But the analysing the fumble rates, self play does much worse, indicating that self play seems to converge to some local optimum
+- But, by analysing the fumble rates, self play does much worse, indicating that self play seems to converge to some local optimum
 - The reason for this seems to be that optimal opponents harshly punish any suboptimal move, which causes drastic drops in the Q-value along the entire sample path containing suboptimal moves
-- Zero reward on losing(no negative reward) shows smoother convergence because suboptimal moves are penalised less
+- Zero reward on losing(no negative reward) shows smoother convergence maybe because suboptimal moves are penalised less
 
 **Conclusion**: let's try discounting so that suboptimal moves along a sample path don't punish **all** moves along the path equally
 
