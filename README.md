@@ -1,8 +1,12 @@
 # tabular_rl_methods
 Implementations for tabular Reinforcement Learning methods for various problem settings
-<!--
+
 ## Table of Contents
- -->
+1. Planning for fully observable MDPs
+2. Reinforcement Learning
+3. References
+4. Contributing
+
 ## Planning Methods
 Methods to solve MDPs where all dynamics and reward systems are known
 
@@ -71,9 +75,9 @@ Now we move to the case where the dynamics and rewards are not known. What we do
 - Discounting did help reduce fumble rates for SARSA though
 - Q-learning performs badly throughout, it has room for improvement
 
-### References
+## References
 <a id="1">[1]</a> 📚 S. M. Ross, Applied Probability Models with Optimization Applications, Holden-Day, 1970.  
 <a id="2">[2]</a> 📄 AlphaGo Zero: Silver et al., Mastering the game of Go without human knowledge, Nature, 2017. DOI: 10.1038/nature24270
 
-### Contributing:
+## Contributing:
 Feel free to open issues for suggestions, or contribute with a pull request
