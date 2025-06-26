@@ -65,6 +65,7 @@ Now we move to the case where the dynamics and rewards are not known. What we do
 - For a detailed description of Simple Nim and the implementation of the opponent refer [this](nim_MC_on_policy.ipynb)
 
 #### Without Self Play
+- So this section is basically cheating for most games because we don't usually have an optimal policy
 - Monte Carlo with Exploring Starts and Epsilon Greedy Policy On Policy implemented for the game of Nim both first visit and every visit [here](nim_MC_on_policy.ipynb)
 - Sarsa implemented [here](nim_Sarsa.ipynb).  
 - Performance is measured based on number of winning positions fumbled, i.e. number of states where the optimal strategy guarantees winning but the agent makes a move such that against an opponent playing optimally, the game is lost.
@@ -79,6 +80,7 @@ Now we move to the case where the dynamics and rewards are not known. What we do
 
 - Initially blamed jagged Q-values on lack of discounting but it turns out I just needed to train longer for convergence. ¯\\\_(ツ)\_/¯
 - Discounting did help reduce fumble rates though for SARSA
+- Q-learning performs badly throughout, this could be improved suggestions and contributions are welcome via issues or PRs if you are feeling generous!
 
 ### References
 <a id="1">[1]</a> 📚 S. M. Ross, Applied Probability Models with Optimization Applications, Holden-Day, 1970.  
