@@ -72,6 +72,8 @@ Now we move to the case where the dynamics and rewards are not known. What we do
 ## References
 <a id="1">[1]</a> 📚 S. M. Ross, Applied Probability Models with Optimization Applications, Holden-Day, 1970.  
 <a id="2">[2]</a> 📄 AlphaGo Zero: Silver et al., Mastering the game of Go without human knowledge, Nature, 2017. DOI: 10.1038/nature24270
+<a id="3">[3]</a> 📄 Long-Ji Lin, Reinforcement Learning for Robots Using Neural Networks, Technical Report, DTIC Document, 1993.
+<a id="3">[4]</a> 📚 R. S. Sutton and A. G. Barto, Reinforcement Learning: An Introduction, MIT Press, 2018. (2nd Edition)
 
 ## Contributing:
 Feel free to open issues for suggestions, or contribute with a pull request
