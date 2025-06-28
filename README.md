@@ -1,4 +1,4 @@
-# tabular_rl_methods
+# Tabular Reinforcement Learning Methods
 Implementations for tabular Reinforcement Learning methods for various problem settings
 
 ## Planning Methods
@@ -57,16 +57,16 @@ Now we move to the case where the dynamics and rewards are not known. What we do
 - Performance is measured based on number of winning positions fumbled, i.e. number of states where the optimal strategy guarantees winning but the agent makes a move such that against an optimal opponent the game is lost(ends turn on a non-zero nim sum when a position with zero nim sum is possible).
 
 #### Observations for undiscounted case:
-- Q-value vs episode plots indicate that convergence is much more stable for self play than for an optimal opponent
-- But, by analysing the fumble rates, self play does much worse, indicating that self play seems to converge to some local optimum
-- The reason for this seems to be that optimal opponents harshly punish any suboptimal move, which causes drastic drops in the Q-value along the entire sample path containing suboptimal moves
-- Zero reward on losing(no negative reward) shows smoother convergence maybe because suboptimal moves are penalised less
+- Q-value vs episode plots indicate self play achieves better values
+- But, by analysing the fumble rates, self play does much worse, indicating that self play seems to converge to some local optimum due to suboptimal opponents
+- The reason for this seems to be that optimal opponents harshly punish any suboptimal move, which causes drastic drops in the Q-value along the entire sample path containing suboptimal moves but over time allows the agent to learn the optimal moves.
+- Q-learning shows a strange plot for value of start state, the start state being a winning state should have a value of 1 with 3 possible optimal actions but the value converges to -1.0
 
 **Conclusion**: let's try discounting so that suboptimal moves along a sample path don't punish **all** moves along the path equally
 
 #### Observations after discounting:
 - Initially blamed jagged Q-values on lack of discounting but it turns out I just needed to train longer for convergence. ¯\\\_(ツ)\_/¯
-- Discounting did help reduce fumble rates for SARSA though
+- Sarsa improves marginally for bigger games(initial_pebbles = 8,9 and 10)
 - Q-learning performs badly throughout, it has room for improvement
 
 ## References
