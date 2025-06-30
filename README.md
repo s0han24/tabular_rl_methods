@@ -66,8 +66,19 @@ Now we move to the case where the dynamics and rewards are not known. What we do
 
 #### Observations after discounting:
 - Initially blamed jagged Q-values on lack of discounting but it turns out I just needed to train longer for convergence. ¯\\\_(ツ)\_/¯
-- Sarsa improves marginally for bigger games(initial_pebbles = 8,9 and 10)
+- SARSA converges to the optimal value function given sufficient episodes to learn from
 - Q-learning performs badly throughout, it has room for improvement
+
+#### Using afterstates:
+- The next step is to abandon the initial model of estimating Q-value to decide what action to take for the value function over "afterstates".
+- In the game of nim, we know what state the turn ends on(give to the opponent) immediately after the agent makes a given move, so rather than assigning values to the action of removing pebbles(or sticks), what if we assign values to the state that is attained after removing the pebbles?
+- Consider the following state transitions:
+(5,5,4) $\xrightarrow{(2,4)}$ (5,5,0)  <br>
+(5,5,1) $\xrightarrow{(2,1)}$ (5,5,0)
+different actions from different states lead to the same afterstate which is optimal
+- This kind of structure is present in all combinatorial games
+- It is a waste of experience to not use what is learned from the first transition in the second because we know that the state reached is optimal. The use of afterstates is to get the model to use such patterns too
+
 
 ## References
 <a id="1">[1]</a> 📚 S. M. Ross, Applied Probability Models with Optimization Applications, Holden-Day, 1970.  
