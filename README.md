@@ -1,84 +1,74 @@
 # Tabular Reinforcement Learning Methods
-Implementations for tabular Reinforcement Learning methods for various problem settings
+This repository contains implementations and experiments on tabular reinforcement learning and planning methods applied to structured problems with known or computable optimal policies. The goal is to study algorithmic behavior in controlled settings and explore theoretical insights into the working of tabular reinforcement learning methods, the foundational precursors to modern Deep RL.
 
-## Planning Methods
-Methods to solve MDPs where all dynamics and reward systems are known
-
-### The Machine Replacement Problem
-- An introductory problem in the context of solving Markov Decision Processes(MDPs) in the setting where the model of the environment is known
-- The basic problem statement has been taken from [[1](#1)]
+### Problem 1: The Machine Replacement Problem
+This is a classic example of solving Markov Decision Processes (MDPs) when the transition model is known. The formulation is based on Ross’s Applied Probability Models [[1](#1)].
 
 #### The Base Problem statement:
 - A machine can be in any of the states 1,2, ... , N considering a finite set of states for convenience of implementation
-- At the beginning of each day, the state of the machine is noted and a decision upon whether or not to replace the machine is made
-- If the decision to replace is made, then we assume that the machine is instantaneously replaced by a new machine whose state is O and a replacement cost is incurred
-- a maintenance cost is incurred each day which is a function of current state
+- Each day, we observe the state and decide whether to continue or replace the machine.
+- Replacement resets the machine to a new state 0 and incurs a cost, replacement is instantaneous.
+- A maintenance cost is also incurred daily based on the current state.
 - The dynamics are markovian under both actions
 
-### Infinite Horizon Case
-- It can be proved that when the transition probabilities and costs are defined as given [here](DP_MDP.ipynb), the optimal policy for the infinite horizon case is a threshold type policy
-- Refer [here](DP_MDP.ipynb) for the precise problem definition and the Dynamic Programming solution for the base machine replacement problem.
-- The notebook implements Modified Policy Iteration to solve the problem.
+### Infinite Horizon Case (Discounted Rewards)
+- Solved using Modified Policy Iteration ([see notebook](machine_replacement/DP_MDP.ipynb)).
+- Known to yield a threshold policy: replace only when state exceeds a fixed value.
+- Notebook explores convergence behavior, value functions, and policies.
+- Solved in the RL case using TD methods ([see notebook](machine_replacement/TD_machine_replacement.ipynb)).
 
-### Finite Horizon Case
+### Finite Horizon Variant
 - Here, a small modification is used to bring up a finite horizon version of the problem
-- To explore a **time dependant policy** a payout is introduced at terminal step
-- The payout is higher for lower valued states(states are assumed to be completely ordered) to introduce a tradeoff between the payout and the replacement cost
-- The idea is to see how the policy takes into account the following:
-    1. Replacing the machine when the problem is close to terminating makes sure we get a higher payout
+- To explore a **time dependant policy** a payout is introduced at terminal step which favours lower valued states.
+- Highlights tradeoffs:
+    1. Replace at later time steps to maximize terminal payout
     2. But replacing the machine involves a replacement cost
 - The tradeoff between these two makes the policy interesting especially when the discount factor is greater than 0.7
-- Refer [here](finite_horizon.ipynb) for the solution for this version of the machine replacement problem.
+- Dynamic Programming used to explore optimal time-varying policies
+([see notebook](machine_replacement/finite_horizon.ipynb))
 
-## Reinforcement Learning
-Now we move to the case where the dynamics and rewards are not known. What we do have is a way to sample a sequence of states, actions and rewards given by $s_1, a_1, r_1, s_2, a_2, r_2, ...$ which may or may not terminate depending on the nature of the problem.
-
-### The Game of Nim
+### Problem 2: The Game of Nim
 #### Introduction:
-- Nim is a combinatorial game, it is central to combinatorial game theory because its generalization gives a framework to describe any combinatorial game as a game of single heap Nim(not the simple nim game which is used here). Refer to the [Sprague-Grundy Theorem](https://en.wikipedia.org/wiki/Sprague%E2%80%93Grundy_theorem).
-- The optimal strategy for any combinatorial game is the same: get to a zero nim sum position(or a position with a Grundy number of zero) whenever possible and if such a position isn't available to you then you have no way to secure a win unless your opponent makes a mistake(chooses a move with non-zero nim sum)
-- However, this strategy is not always practical to implement
-- What I aim to do by exploring a Reinforcement Learning Solution to The Game of Nim is to see how RL methods fare on small combinatorial games and how close to the known optimal policy do they get, to be perfectly clear the goal is not to build an agent but to see how these agents perform on a task with a known optimal strategy.
+- Nim is a simple yet rich combinatorial game with well-studied optimal strategies. This makes it ideal for evaluating how RL agents learn in the presence of a **known optimal policy.**
+- Nim is central to combinatorial game theory and is an especially powerful method to represent combinatorial games(refer: [The Sprague-Grundy Theorem](https://en.wikipedia.org/wiki/Sprague%E2%80%93Grundy_theorem))
 
-#### Implementation details:
-- Self-Play is a method to train agents to play games that is responsible for the success of [AlphaGo Zero](https://deepmind.google/discover/blog/alphago-zero-starting-from-scratch/) [[2](#2)], but to start off I implemented a static opponent who always plays optimally when an optimal strategy is available and plays a move that prolongs the game as much as possible when there isn't an optimal move.
-- The agent is trained using simulations from opponents using the following strategy:
- 1. Choose the optimal action with some probability $\epsilon$
- 2. Choose a random action with some probability $1-\epsilon$
-- This policy is similar to an $epsilon$-greedy policy but the crucial difference lies in the way we choose the optimal action which in this case is not one with best predicted return but the one with the proven best return.
-- Using this static opponent is feasible here because we have an easily implementable optimal strategy.
-- For a detailed description of Simple Nim and the implementation of the opponent refer [this](nim_MC_on_policy.ipynb)
+#### Goal of Experiment:
+The purpose here is not to train a competitive agent but to:
+- Evaluate how well RL methods recover the known optimal strategy
+- Understand the limitations of various exploration and learning mechanisms
 
-#### Without Self Play
-- So this section is basically cheating for most games because we don't usually have an optimal policy.
-- On policy Monte-Carlo(MC) Control implemented on The Game of Nim [here](nim_MC_on_policy.ipynb)
-- Off policy MC control methods not implemented yet
-- Temporal Difference methods: Sarsa, Sarsa($\lambda$) and Q-learning implemented [here](nim_TD.ipynb).  
-- Performance is measured based on number of winning positions fumbled, i.e. number of states where the optimal strategy guarantees winning but the agent makes a move such that against an optimal opponent the game is lost(ends turn on a non-zero nim sum when a position with zero nim sum is possible).
+#### Strategy
+##### Static opponent:
+Use a static opponent that plays optimally when possible. This is only possible because we know the optimal policy for Nim.
 
-#### Observations for undiscounted case:
-- Q-value vs episode plots indicate self play achieves better values
-- But, by analysing the fumble rates, self play does much worse, indicating that self play seems to converge to some local optimum due to suboptimal opponents
-- The reason for this seems to be that optimal opponents harshly punish any suboptimal move, which causes drastic drops in the Q-value along the entire sample path containing suboptimal moves but over time allows the agent to learn the optimal moves.
-- Q-learning shows a strange plot for value of start state, the start state being a winning state should have a value of 1 with 3 possible optimal actions but the value converges to -1.0
+The agent is initially trained using simulations with an ε-optimal policy:
+- With probability ε: opponent plays the optimal move
+- With probability 1-ε: random move (to prolong the game)
 
-**Conclusion**: let's try discounting so that suboptimal moves along a sample path don't punish **all** moves along the path equally
+This setup mimics ε-greedy but uses ground-truth optimal moves instead of learned Q-values.
 
-#### Observations after discounting:
-- Initially blamed jagged Q-values on lack of discounting but it turns out I just needed to train longer for convergence. ¯\\\_(ツ)\_/¯
-- SARSA converges to the optimal value function given sufficient episodes to learn from
-- Q-learning performs badly throughout, it has room for improvement
+##### Self-Play Setup
+In addition to using static opponents, I implemented self-play, where the agent learns by competing against its own evolving policy. After correcting an earlier implementation bug, self-play achieved performance indistinguishable from training against an optimal opponent, and consistently outperformed ε-optimal opponents, especially at lower values of ε.
 
-#### Using afterstates:
-- The next step is to abandon the initial model of estimating Q-value to decide what action to take for the value function over "afterstates".
-- In the game of nim, we know what state the turn ends on(give to the opponent) immediately after the agent makes a given move, so rather than assigning values to the action of removing pebbles(or sticks), what if we assign values to the state that is attained after removing the pebbles?
-- Consider the following state transitions:
-(5,5,4) $\xrightarrow{(2,4)}$ (5,5,0)  <br>
-(5,5,1) $\xrightarrow{(2,1)}$ (5,5,0)
-different actions from different states lead to the same afterstate which is optimal
-- This kind of structure is present in all combinatorial games
-- It is a waste of experience to not use what is learned from the first transition in the second because we know that the state reached is optimal. The use of afterstates is to get the model to use such patterns too
+This result demonstrates that even in tabular settings like Nim:
 
+- Self-play can recover the optimal policy, given enough training
+
+- Training against suboptimal (noisy) opponents can slow down or misguide learning
+
+These findings reinforce the value of self-play as a stable learning method even in simple MDPs, and offer insight into policy convergence dynamics when ground truth is known.
+
+#### Implementation Overview
+
+- Monte Carlo Control: [Notebook](Nim/nim_MC.ipynb)
+
+- Temporal Difference Methods (SARSA, Q-learning, SARSA-λ): [Notebook](Nim/nim_TD.ipynb)
+
+- Special performance metric: Percentage of winning positions fumbled - instances where the agent makes a losing move from a winning state. This metric is uniquely available in Nim due to the presence of a known, deterministic optimal policy.
+
+#### Afterstates:
+To improve generalization, the agent can be modified to learn afterstate values instead of action-values. This helps reuse knowledge across state-action pairs leading to the same resulting state — an efficient trick in structured games like Nim.
+- Afterstates have not been implemented yet and are the planned next step
 
 ## References
 <a id="1">[1]</a> 📚 S. M. Ross, Applied Probability Models with Optimization Applications, Holden-Day, 1970.  
