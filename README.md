@@ -108,7 +108,7 @@ Because Nim has a known optimal policy, we define:
 This highlights not just average performance but **policy reliability**.
 
 #### Afterstates:
-To improve generalization, the agent can be modified to learn afterstate values instead of action-values. This helps reuse knowledge across state-action pairs leading to the same resulting state — an efficient trick in structured games like Nim.
+To improve generalization, the agent can be modified to learn afterstate values(refer [[4](#4)]) instead of action-values. This helps reuse knowledge across state-action pairs leading to the same resulting state — an efficient trick in structured games like Nim.
 - Afterstates have not been implemented yet and are the planned next step
 
 ### Key Observations
@@ -122,7 +122,6 @@ To improve generalization, the agent can be modified to learn afterstate values 
 - Tabular RL methods successfully recover optimal strategies in structured domains
 - Nim provides a powerful benchmark due to its known optimal policy
 - Self-play is surprisingly effective in tabular settings
-- Careful debugging is critical — theoretical gaps may just be bugs
 - Evaluation metrics beyond reward (like fumble rate) offer deeper insights
 
 
